@@ -1,4 +1,44 @@
-# Crawlab
+# Crawlab ARM64
+
+This repository hosts a Crawlab distribution adapted for `linux/arm64`. The changes were made by VibeCoding to support ARM64, and have been verified deployable and functional on Radxa A7Z.
+
+- Base project: [crawlab-team/crawlab](https://github.com/crawlab-team/crawlab)
+- Target platform: `linux/arm64`
+- Verified device: Radxa A7Z
+
+## Build & Run
+
+Prerequisites:
+- Docker 24+ and Docker Compose plugin
+- Open ports `8080` (HTTP UI/API) and `27017` (MongoDB)
+
+Steps:
+- Clone the repo
+- Build and start with Docker Compose
+
+```bash
+git clone https://github.com/KrOik/crawlab-arm64.git
+cd crawlab-arm64
+docker compose up -d
+```
+
+Notes:
+- The Compose file sets `platform: linux/arm64` for the `master` service and `restart: always` for both `master` and `mongo`.
+- First run builds the `crawlab-local:arm64` image from the local Dockerfile and starts services.
+- Access UI at `http://localhost:8080`. Health checks:
+  - `curl http://localhost:8080/api/version`
+  - `curl http://localhost:8080/api/system-info`
+
+Force rebuild if needed:
+
+```bash
+docker compose build --no-cache master
+docker compose up -d
+```
+
+## Acknowledgement
+
+Modified by VibeCoding to support ARM64; confirmed deployable and functional on Radxa A7Z.
 
 <p>
   <a href="https://github.com/crawlab-team/crawlab/actions/workflows/docker-crawlab.yml" target="_blank">

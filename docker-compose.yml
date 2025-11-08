@@ -1,14 +1,25 @@
-version: '3.3'
+version: '3.8'
 services:
   master:
-    image: crawlabteam/crawlab
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/arm64
+    image: crawlab-local:arm64
     container_name: crawlab_master
+    restart: always
     environment:
       CRAWLAB_NODE_MASTER: "Y"
       CRAWLAB_MONGO_HOST: "mongo"
+      CRAWLAB_SERVER_HOST: "0.0.0.0"
+      CRAWLAB_SERVER_PORT: "8000"
     ports:
       - "8080:8080"
     depends_on:
       - mongo
   mongo:
-    image: mongo:4.2
+    image: mongo:6.0
+    container_name: crawlab_mongo
+    restart: always
+    ports:
+      - "27017:27017"

@@ -345,6 +345,24 @@ func InitRoutes(app *gin.Engine) (err error) {
 			HandlerFunc: GetSystemInfo,
 		},
 	})
+
+	// compatibility: some frontend builds may request '/system'
+	RegisterActions(groups.AnonymousGroup, "/system", []Action{
+		{
+			Path:        "",
+			Method:      http.MethodGet,
+			HandlerFunc: GetSystemInfo,
+		},
+	})
+
+	// compatibility: some frontend builds may request '/version' for a quick health check
+	RegisterActions(groups.AnonymousGroup, "/version", []Action{
+		{
+			Path:        "",
+			Method:      http.MethodGet,
+			HandlerFunc: GetVersion,
+		},
+	})
 	RegisterActions(groups.AnonymousGroup, "/", []Action{
 		{
 			Method:      http.MethodPost,

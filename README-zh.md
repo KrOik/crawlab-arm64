@@ -1,4 +1,36 @@
-# Crawlab
+# Crawlab ARM64 简版
+
+本仓库为 Crawlab 的 ARM64 适配版本。由 VibeCoding 修改以支持 ARM64，已在瑞莎 Radxa A7Z 部署并确认可用。
+
+## 构建与运行（简版）
+
+前置条件：
+- 安装 Docker 与 Docker Compose 插件
+- 开放端口 `8080`（UI/API）与 `27017`（MongoDB）
+
+步骤：
+```bash
+git clone https://github.com/KrOik/crawlab-arm64.git
+cd crawlab-arm64
+docker compose up -d
+```
+
+说明：
+- Compose 文件已为 `master` 服务设置 `platform: linux/arm64`，`master` 与 `mongo` 均为 `restart: always`。
+- 首次启动会从本地 Dockerfile 构建镜像 `crawlab-local:arm64` 并拉起服务。
+- 访问 `http://localhost:8080`。健康检查：
+  - `curl http://localhost:8080/api/version`
+  - `curl http://localhost:8080/api/system-info`
+
+如需强制重建：
+```bash
+docker compose build --no-cache master
+docker compose up -d
+```
+
+备注：
+- 通过 VibeCoding 修改并支持了 ARM64，已在瑞莎 Radxa A7Z 确认可用。
+
 
 <p>
   <a href="https://github.com/crawlab-team/crawlab/actions/workflows/docker-crawlab.yml" target="_blank">

@@ -9,3 +9,5 @@ _book/
 vendor/
 .crawlab
 dist/
+*.tar
+*.tar.gz
